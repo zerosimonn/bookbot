@@ -1,13 +1,16 @@
 def main():
     bookpath = "books/frankenstein.txt"
     text = get_book_text(bookpath)
-#    print(text)
     number_of_words = get_num_words(text)
     chars_dict = get_num_char(text)
 
-    print(f"{number_of_words} words found in document")
-    print(f"\nAantal characters in text:\n {result} ")
-   
+    print("--- Begin report of books/frankenstein.txt ---")
+    print(f"{number_of_words} words found in the document")
+    
+    result = reporting(chars_dict)
+    print(result)
+    print("--- End report ---")
+
 def get_book_text(path):
     with open(path) as f:
         return f.read()
@@ -25,9 +28,18 @@ def get_num_char(text):
             my_dict[letter] += 1
         else:
             my_dict.update({letter : 1})
-    return my_dict
+    return my_dict    
+
+def reporting(my_dict):
+    sorted_items = sorted(my_dict.items(), key=lambda x: x[1], reverse=True)
+    sorted_dict = dict(sorted_items)
+
+    for key, value in sorted_dict.items():
+        if key.isalpha() and key != " ":
+            print(f"The '{key}' character was found {value} times")
+        else:  
+            None
+
+    # return(sorted_dict)
 
 main()
-
-
-
